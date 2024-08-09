@@ -6,6 +6,7 @@ satis.json
 
 # Ignore static html build by satis
 docs/*
+!docs/.gitkeep
 include/*
 packages.json
 index.html

@@ -1,0 +1,27 @@
+services:
+  builder:
+    container_name: wp-languages
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./cache:/app/cache
+      - ./docs:/app/docs
+      - ./config:/app/config
+      - ./src:/app/src
+      - ./views:/app/views
+      - ./vendor:/app/vendor
+
+volumes:
+  cache:
+    external: true
+  docs:
+    external: true
+  config:
+    external: true
+  src:
+    external: true
+  views:
+    external: true
+  vendor:
+    external: true

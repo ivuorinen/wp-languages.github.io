@@ -1,67 +1,66 @@
 {
-    "name": "wp-languages/wp-languages.github.io",
-    "description": "Composer language packs for WordPress translations. This includes translations for core and official themes and few plugins.",
-    "license": "MIT",
-    "type": "library",
-    "keywords": [
-        "package",
-        "repository",
-        "generator",
-        "wordpress",
-        "languages",
-        "gh-pages"
+  "name": "wp-languages/wp-languages.github.io",
+  "description": "Composer language packs for WordPress translations. This includes translations for core and official themes and few plugins.",
+  "license": "MIT",
+  "type": "library",
+  "keywords": [
+    "package",
+    "repository",
+    "generator",
+    "wordpress",
+    "languages",
+    "gh-pages"
+  ],
+  "authors": [
+    {
+      "name": "Onni Hakala",
+      "homepage": "https://github.com/onnimonni"
+    },
+    {
+      "name": "Ismo Vuorinen",
+      "homepage": "https://github.com/ivuorinen"
+    }
+  ],
+  "homepage": "https://wp-languages.github.io/",
+  "require": {
+    "php": ">=8.3",
+    "ext-json": "*",
+    "illuminate/collections": "^11",
+    "rmccue/requests": "^2"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.25"
+  },
+  "bin": [
+    "run-cache"
+  ],
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  },
+  "scripts": {
+    "local-build": "@php -d memory_limit=-1 ./vendor/bin/satis build ./satis.json ./docs/",
+    "build-ci": "@php -d memory_limit=-1 ./vendor/bin/satis build ./satis.json ./",
+    "cache": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php ./run-cache"
     ],
-    "authors": [
-        {
-            "name": "Onni Hakala",
-            "homepage": "https://github.com/onnimonni"
-        },
-        {
-            "name": "Ismo Vuorinen",
-            "homepage": "https://github.com/ivuorinen"
-        }
+    "cache-build": [
+      "@cache",
+      "@local-build"
     ],
-    "homepage": "https://wp-languages.github.io/",
-    "require": {
-        "php": "^7.4 || >=8",
-        "ext-json": "*",
-        "composer/satis": "^1.0",
-        "illuminate/collections": "^8.55",
-        "rmccue/requests": "^1.8"
-    },
-    "require-dev": {
-        "ergebnis/composer-normalize": "^2.25"
-    },
-    "bin": [
-        "bin/cache"
+    "cache-build-ci": [
+      "@cache",
+      "@build-ci"
     ],
-    "config": {
-        "allow-plugins": {
-            "ergebnis/composer-normalize": true
-        }
-    },
-    "scripts": {
-        "build": "@php -d memory_limit=-1 ./vendor/bin/satis build ./satis.json ./docs/",
-        "build-ci": "@php -d memory_limit=-1 ./vendor/bin/satis build ./satis.json ./",
-        "cache": [
-            "Composer\\Config::disableProcessTimeout",
-            "@php ./bin/cache"
-        ],
-        "cache-build": [
-            "@cache",
-            "@build"
-        ],
-        "cache-build-ci": [
-            "@cache",
-            "@build-ci"
-        ],
-        "cleanup": "rm -rf ./cache/*.json ./docs/*",
-        "run-all": [
-            "@cleanup",
-            "@cache",
-            "@build"
-        ]
-    },
-    "forum": "https://discourse.roots.io/t/install-update-wordpress-languages-with-composer/2021",
-    "issues": "https://github.com/wp-languages/wp-languages.github.io/issues"
+    "cache-cleanup": "rm -rf ./cache/*.json ./docs/*",
+    "run-all": [
+      "@cache-cleanup",
+      "@cache",
+      "@local-build"
+    ]
+  },
+  "forum": "https://discourse.roots.io/t/install-update-wordpress-languages-with-composer/2021",
+  "issues": "https://github.com/wp-languages/wp-languages.github.io/issues"
 }
